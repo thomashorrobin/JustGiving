@@ -6,7 +6,7 @@ namespace JustGiving
     {
 		public double CalculateGiftAid(double donation)
 		{
-			return 0;
+			return donation * 0.2;
 		}
     }
 
