@@ -1,22 +1,27 @@
 using System;
 using Xunit;
 using JustGiving;
+using Moq;
 
 namespace JustGiving.Tests
 {
-	public class GiftAidServiceTests
+	public class StoryOneTests
     {
 		private readonly IGiftAidService _giftAidService;
 
-        public GiftAidServiceTests()
+		public StoryOneTests()
 		{
-			_giftAidService = new GiftAidService();
+			var mock = new Mock<ITaxRateDataStore>();
+
+			mock.Setup(framework => framework.GetGiftAidRate()).Returns(20);
+
+			_giftAidService = new GiftAidService(mock.Object);
 		}
 
         [Fact]
 		public void CalculateGiftAid_method_should_return_correct_amount()
         {
-			Assert.Equal(20, _giftAidService.CalculateGiftAid(100));
+			Assert.Equal(25, _giftAidService.CalculateGiftAid(100));
 		}
 
         [Fact]

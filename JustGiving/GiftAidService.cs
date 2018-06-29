@@ -4,6 +4,13 @@ namespace JustGiving
 {
 	public class GiftAidService : IGiftAidService
     {
+		private readonly ITaxRateDataStore _taxRateDataStore;
+
+		public GiftAidService(ITaxRateDataStore taxRateDataStore)
+		{
+			_taxRateDataStore = taxRateDataStore;
+		}
+
 		public double CalculateGiftAid(double donation)
 		{
             if (donation < 0)
@@ -11,7 +18,9 @@ namespace JustGiving
 				throw new ArgumentOutOfRangeException("donation", "the donation must be a positive number");
 			}
 
-			return donation * 0.2;
+			var giftAidTaxRate = _taxRateDataStore.GetGiftAidRate();
+
+			return donation * ( giftAidTaxRate / (100 - giftAidTaxRate ));
 		}
     }
 
