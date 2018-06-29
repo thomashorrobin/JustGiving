@@ -22,10 +22,16 @@ namespace JustGiving
 
 			return donation * ( giftAidTaxRate / (100 - giftAidTaxRate ));
 		}
+
+		public void SetGiftAidTaxRate(double rate)
+		{
+			_taxRateDataStore.SetGiftAidRate(rate);
+		}
     }
 
 	public interface IGiftAidService
 	{
 		double CalculateGiftAid(double donation);
+		void SetGiftAidTaxRate(double rate);
 	}
 }

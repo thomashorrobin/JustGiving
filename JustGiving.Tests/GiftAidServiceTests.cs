@@ -36,4 +36,24 @@ namespace JustGiving.Tests
 			Assert.Throws(typeof(ArgumentOutOfRangeException), () => _giftAidService.CalculateGiftAid(-10));
         }
     }
+
+    public class StoryTwoTests
+	{
+        private readonly IGiftAidService _giftAidService;
+
+        public StoryTwoTests()
+		{
+			_giftAidService = new GiftAidService(new TaxRateDataStoreStub());
+		}
+
+        [Fact]
+		public void SetGiftAidTaxRate_should_change_rate()
+		{
+			Assert.Equal(0, _giftAidService.CalculateGiftAid(60));
+
+			_giftAidService.SetGiftAidTaxRate(25);
+
+			Assert.Equal(20, _giftAidService.CalculateGiftAid(60));
+		}
+	}
 }
