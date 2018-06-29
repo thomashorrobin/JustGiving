@@ -24,6 +24,8 @@ namespace JustGiving.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+			services.Add(new ServiceDescriptor(typeof(ITaxRateDataStore), typeof(TaxRateDataStoreStub), ServiceLifetime.Singleton));
+            services.Add(new ServiceDescriptor(typeof(IGiftAidService), typeof(GiftAidService), ServiceLifetime.Singleton));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
