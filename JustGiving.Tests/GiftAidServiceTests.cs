@@ -56,4 +56,24 @@ namespace JustGiving.Tests
 			Assert.Equal(20, _giftAidService.CalculateGiftAid(60));
 		}
 	}
+
+    public class StoryThreeTests
+	{
+        private readonly IGiftAidService _giftAidService;
+
+		public StoryThreeTests()
+        {
+            var mock = new Mock<ITaxRateDataStore>();
+
+            mock.Setup(framework => framework.GetGiftAidRate()).Returns(19);
+
+            _giftAidService = new GiftAidService(mock.Object);
+        }
+      
+        [Fact]
+        public void CalculateGiftAid_method_should_return_amount_rounded()
+        {
+            Assert.Equal(23.46, _giftAidService.CalculateGiftAid(100));
+        }
+	}
 }

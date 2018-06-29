@@ -20,7 +20,9 @@ namespace JustGiving
 
 			var giftAidTaxRate = _taxRateDataStore.GetGiftAidRate();
 
-			return donation * ( giftAidTaxRate / (100 - giftAidTaxRate ));
+			var giftAid = donation * ( giftAidTaxRate / (100 - giftAidTaxRate ));
+
+			return Math.Round(giftAid, 2);
 		}
 
 		public void SetGiftAidTaxRate(double rate)
